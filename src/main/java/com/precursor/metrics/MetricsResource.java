@@ -12,6 +12,9 @@ import java.io.StringWriter;
 
 import static jakarta.ws.rs.core.MediaType.TEXT_PLAIN;
 
+/**
+ * /realms/{realm}/metrics 경로로 Prometheus 메트릭 노출ㅌ
+ */
 @Path("/metrics")
 public class MetricsResource implements RealmResourceProvider {
     @Override

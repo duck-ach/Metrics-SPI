@@ -7,6 +7,9 @@ import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmProvider;
 
+/**
+ * 	Keycloak 이벤트 수신 및 PrometheusExporter 호출
+ */
 public class MetricsEventListenerProvider implements EventListenerProvider {
 
     private static final Logger logger = Logger.getLogger(MetricsEventListenerProvider.class);
@@ -26,7 +29,12 @@ public class MetricsEventListenerProvider implements EventListenerProvider {
             return;
         }
 
-        logger.debugf("Processing user event: %s", event.getType());
+        logger.infof("✅ Received event: type=%s, realmId=%s, clientId=%s, error=%s, details=%s",
+                event.getType(),
+                event.getRealmId(),
+                event.getClientId(),
+                event.getError(),
+                event.getDetails());
 
         switch (event.getType()) {
             case LOGIN -> PrometheusExporter.instance().recordLogin(event, realmProvider);
